@@ -1,0 +1,39 @@
+body{
+    background-image: url("../images/backImage.jpg");
+    background-size: auto;
+    background-position-x: center;
+    font-family: monospace;
+    color: white;
+}
+
+nav {
+    background-color: #333;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+}
+  
+#menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+  
+#menu li {
+    margin: 0 3vh;
+}
+
+#menu a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    line-height: 50px;
+    padding: 0 10px;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+  
+#menu a:hover {
+    background-color: #555;
+}
