@@ -29,3 +29,16 @@
 #user-account #delete-account{
     background-color: rgb(151, 25, 25);
 }
+
+#user-account #change-username:hover,
+#user-account #change-password:hover{
+    background-color: #3e8e41;
+}
+
+#user-account #logout:hover{
+    background-color: rgb(25, 61, 26);
+}
+
+#user-account #delete-account:hover{
+    background-color: rgb(122, 20, 20);
+}
