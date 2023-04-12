@@ -9,14 +9,14 @@
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   margin-top: 20px;
 }
-#playlist ul {
+.song-list {
   display: inline-flex;
   list-style: none;
   flex-direction: column;
   margin: 0;
   padding: 0;
 }
-#playlist ul li {
+.song-list .song {
   text-align: left;
   border: 3px solid lightgrey;
   border-radius: 8px;

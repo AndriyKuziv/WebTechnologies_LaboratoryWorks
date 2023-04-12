@@ -3,35 +3,33 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>PlayTime - (Playlist name)</title>
-        <meta name="description" content="">
+        <title>PlayTime - Main</title>
+        <meta name="description" content="Main page">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="../styles/style.css" rel="stylesheet" type="text/css">
         <link href="../styles/playlistStyle.css" rel="stylesheet" type="text/css">
+        <link href="../styles/songsStyle.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <nav>
             <input type="checkbox" id="menu-toggle">
             <label for="menu-toggle" class="menu-icon">&#9776;</label>
             <ul id="menu">
-              <li><a href="../index.html">Home</a></li>
+              <li><a href="../index.html"><b>Home</b></a></li>
               <li><a href="userPublicPlaylists.html">Your public playlists</a></li>
               <li><a href="userPrivatePlaylists.html">Your private playlists</a></li>
               <li><a href="userAccount.html">Your account</a></li>
             </ul>
         </nav>
+        <div class="songs">
+            <div class="label"><h1>Available songs</h1></div>
+            <div class="container">
+                <ul class="song-list">
 
-        <div id="playlist">
-            <h1 class="playlist-name">(Playlist name)</h1>
-            <h2 class="playlist-creator">(Playlist creator)</h2>
-            <h3 class="playlist-type">Type: (Public/Private)</h3>
-            <input type="button" value="Add song" id="add-button" onclick="window.location.href='songs.html'">
-            <input type="button" value="Delete song" id="delete-song">
-            <ul class="song-list">
-                
-            </ul>
+                </ul>
+            </div>
         </div>
-        <script src="../js/playlist.js"></script>
+        <script src="../js/songs.js"></script>
     </body>
     <footer>
         <div>
