@@ -49,7 +49,7 @@ fetch(req)
             songlist.appendChild(song);
 
             var s = document.getElementById(element.id);
-            s.setAttribute("onClick", "window.location='playlist.html?id=" + id + "'");
+            s.setAttribute("onClick", "addSong()");
             
             console.log(s);
         });
@@ -61,4 +61,45 @@ fetch(req)
 function addSong(){
     var songId = this.id;
     
+    let addUrl = "http://localhost:5000/playlist/" + id + "/addSong";
+
+    let body = JSON.stringify({song_id: songId}); 
+
+    postData(addUrl, {"song_id": 8});
+
+    // fetch(addReq)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log(data);
+    //         alert(data);
+    //     })
+    //     .catch(error => console.log(error));
+    
+    //window.location='playlist.html?id=' + id;
+}
+
+async function postData(url="", data = {}){
+    let addH = new Headers();
+    addH.append('Accept', 'application/json');
+    let encoded = btoa('newUser1:2341');
+    let auth = 'Basic ' + encoded;
+    addH.append('Authorization', auth);
+
+    // let addReq = new Request(url, {
+    //     method:'POST',
+    //     headers:addH,
+    //     body: data,
+    //     credentials:'same-origin'
+    // });
+
+    await fetch(url, {
+        method:"POST",
+        credentials: "same-origin",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify(data),
+        headers:addH
+    })
+    .then(response => console.log(response.json()));
 }
