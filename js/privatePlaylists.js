@@ -6,11 +6,17 @@ function elementFromHtml(html){
     return template.content.firstElementChild;
 }
 
+if(localStorage.length == 0){
+    alert("You do not have access to this page");
+    window.location.href="login.html";
+}
+
 let url = "http://localhost:5000/playlist/user/private";
 
 let h = new Headers();
 h.append('Accept', 'application/json');
-let encoded = btoa('newUser1:2341');
+let encoded = btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'));
+// let encoded = btoa('newUser1:2341');
 
 let auth = 'Basic ' + encoded;
 

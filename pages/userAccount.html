@@ -23,11 +23,21 @@
         <div id="user-account">
             <h1 id="user-name">(Username)</h1>
             <input type="button" value="Change username" id="change-username">
-            <input type="button" value="Change password" id="change-password">
-            <input type="button" value="Log out" id="logout" onclick="window.location.href='login.html'">
+            <input type="text" id="username" name="username" placeholder="Username">
+
+            <input type="button" value="Change email" id="change-email">
+            <input type="text" id="email" name="email" placeholder="Email">
+
+            <input type="button" value="Save changes" id="save">
+
+            <input type="button" value="Log out" id="logout">
             <input type="button" value="Delete account" id="delete-account">
         </div>
         <script src="../js/account.js"></script>
+        <script>
+            var myData = localStorage.getItem("username");
+            console.log(myData);
+        </script>
     </body>
     <footer>
         <div>

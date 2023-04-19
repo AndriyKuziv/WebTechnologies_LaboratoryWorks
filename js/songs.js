@@ -6,14 +6,21 @@ function elementFromHtml(html){
     return template.content.firstElementChild;
 }
 
+if(localStorage.length == 0){
+    alert("You do not have access to this page");
+    window.location.href="login.html";
+}
+
+
 const urlParams = new URLSearchParams(window.location.search);
-const id = urlParams.get('id');
+const playlistId = urlParams.get('id');
 
 let url = "http://localhost:5000/song";
 
 let h = new Headers();
 h.append('Accept', 'application/json');
-let encoded = btoa('newUser1:2341');
+let encoded = btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'));
+// let encoded = btoa('newUser1:2341');
 
 let auth = 'Basic ' + encoded;
 
@@ -49,57 +56,46 @@ fetch(req)
             songlist.appendChild(song);
 
             var s = document.getElementById(element.id);
-            s.setAttribute("onClick", "addSong()");
-            
-            console.log(s);
+            s.setAttribute("onClick", "addSong(this)");
         });
     })
     .catch(error => {
-        console.log(error);
+        console.error(error);
     });
 
-function addSong(){
-    var songId = this.id;
+function addSong(obj){
+    const songId = obj.id;
+    console.log(songId);
     
-    let addUrl = "http://localhost:5000/playlist/" + id + "/addSong";
+    let addUrl = "http://localhost:5000/playlist/" + playlistId + "/addSong";
 
     let body = JSON.stringify({song_id: songId}); 
 
-    postData(addUrl, {"song_id": 8});
-
-    // fetch(addReq)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log(data);
-    //         alert(data);
-    //     })
-    //     .catch(error => console.log(error));
-    
-    //window.location='playlist.html?id=' + id;
+    postData(addUrl, body).then(data => {
+        console.log(data);
+    }).then(response => {
+        window.location.href = "playlist.html?id=" + playlistId;
+    });
 }
 
 async function postData(url="", data = {}){
-    let addH = new Headers();
-    addH.append('Accept', 'application/json');
-    let encoded = btoa('newUser1:2341');
+    console.log(data);
+
+    //let encoded = btoa('newUser1:2341');
+    let encoded = btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'));
     let auth = 'Basic ' + encoded;
-    addH.append('Authorization', auth);
 
-    // let addReq = new Request(url, {
-    //     method:'POST',
-    //     headers:addH,
-    //     body: data,
-    //     credentials:'same-origin'
-    // });
-
-    await fetch(url, {
-        method:"POST",
-        credentials: "same-origin",
+    const response = await fetch(url, {
+        method: 'POST',
         headers:{
-            "Content-Type":"application/json"
+            'Content-Type': 'application/json',
+            'Authorization': auth
         },
-        body: JSON.stringify(data),
-        headers:addH
+        body: data
     })
-    .then(response => console.log(response.json()));
+    .catch(error=>{
+        console.error(error);
+    });
+
+    return response.json();
 }

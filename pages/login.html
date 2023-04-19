@@ -17,7 +17,7 @@
               <li><a href="../index.html">Home</a></li>
               <li><a href="userPublicPlaylists.html">Your public playlists</a></li>
               <li><a href="userPrivatePlaylists.html">Your private playlists</a></li>
-              <li><a href="#">Your account</a></li>
+              <li><a href="userAccount.html">Your account</a></li>
             </ul>
         </nav>
         <div id="logres-container">
@@ -25,10 +25,17 @@
                 <h1>Log in</h1>
                 <input type="text" id="username" name="username" placeholder="Username" required>
                 <input type="password" id="password" name="password" placeholder="Password" required>
-                <input type="submit" value="Login">
+                <input type="submit" value="Login" id="login">
                 <a href="register.html"><h4>Don't have an account? Create one!</h4></a>
             </form>
         </div>
+        <script src="../js/login.js"></script>
+        <script>
+            if (localStorage.username != null) {
+            //document.getElementById("userid").innerHTML = localStorage.username;
+            console.log(localStorage.username);
+            }
+        </script>
     </body>
     <footer>
         <div>

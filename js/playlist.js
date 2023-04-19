@@ -6,6 +6,12 @@ function elementFromHtml(html){
     return template.content.firstElementChild;
 }
 
+// console.log(localStorage);
+if(localStorage.length == 0){
+    alert("You do not have access to this page");
+    window.location.href="login.html";
+}
+
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 
@@ -16,7 +22,8 @@ let urlPlaylistSongs = "http://localhost:5000/playlist/" + id + "/songs";
 
 let h = new Headers();
 h.append('Accept', 'application/json');
-let encoded = btoa('newUser1:2341');
+// let encoded = btoa('newUser1:2341');
+let encoded = btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'));
 
 let auth = 'Basic ' + encoded;
 
