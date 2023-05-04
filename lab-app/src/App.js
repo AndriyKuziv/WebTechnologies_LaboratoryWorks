@@ -10,6 +10,7 @@ import { StartingPage } from './pages/startingPage';
 import { Login, Register } from './pages/logres'
 import { UserPrivatePlaylists, UserPublicPlaylists } from './pages/userPlaylists';
 import { UserAccount } from './pages/userAccount';
+import { Playlist } from './pages/playlist';
 
 function App() {
   return(
@@ -31,6 +32,7 @@ function App() {
         <Route path="/login" element={ <Login/> }/>
         <Route path="/register" element={ <Register/> }/>
         <Route path="/userAccount" element={ <UserAccount/> }/>
+        <Route path="/playlist/:plId" element={<Playlist/>}></Route>
     </Routes>
     
     <footer>

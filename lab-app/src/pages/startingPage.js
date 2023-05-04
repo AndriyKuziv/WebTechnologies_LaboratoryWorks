@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
+import { Link } from 'react-router-dom';
 
 export function StartingPage(){
     let [pls, setPls] = useState(null);
@@ -8,19 +9,25 @@ export function StartingPage(){
         fetch('http://localhost:5000/playlist')
         .then(response => response.json())
         .then(data => setPls(data))
+        .catch(error => console.log(error))
     }, []);
 
-    console.log(pls);
+    //console.log(pls);
 
     return <>
         <div className="playlists">
         <div className="label"><h1>Public playlists</h1></div>
             <div className="container">
-                {pls && pls.map((pl) => 
-                <div className="playlist-button" key={pl.id}>
-                    <h2 className="playlist-name">{pl.name}</h2>
-                    <h4 className="playlist-creator">Creator: {pl.user_name}</h4>
-                </div>
+                {pls && pls.map((pl) => {
+                    return <>
+                    <Link to={`/playlist/${pl.id}`}> 
+                    <div className="playlist-button" key={pl.id}>
+                        <h2 className="playlist-name">{pl.name}</h2>
+                        <h4 className="playlist-creator">Creator: {pl.user_name}</h4>
+                    </div>
+                    </Link>
+                    </>
+                }
                 )
                 }
             </div>
