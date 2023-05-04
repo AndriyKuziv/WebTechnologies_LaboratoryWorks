@@ -1,25 +1,30 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 
 export function StartingPage(){
-    // var res = await getPlaylists();
+    let [pls, setPls] = useState(null);
 
-    // console.log(res[0]);
-    
-    //console.log();
+    useEffect(() => {
+        fetch('http://localhost:5000/playlist')
+        .then(response => response.json())
+        .then(data => setPls(data))
+    }, []);
+
+    console.log(pls);
 
     return <>
-        {/* <div className="playlists">
+        <div className="playlists">
         <div className="label"><h1>Public playlists</h1></div>
             <div className="container">
-                {res.map(item => <div className="playlist-button" onClick="window.location='pages/playlist.html';" key={item.id}>
-                            <h2 className="playlist-name">{item.name}</h2>
-                            <h4 className="playlist-creator">Creator: {item.user_name}</h4>
-                        </div>
-                    
-                )}
+                {pls && pls.map((pl) => 
+                <div className="playlist-button" key={pl.id}>
+                    <h2 className="playlist-name">{pl.name}</h2>
+                    <h4 className="playlist-creator">Creator: {pl.user_name}</h4>
+                </div>
+                )
+                }
             </div>
-        </div> */}
+        </div>
     </>;
 }
 
