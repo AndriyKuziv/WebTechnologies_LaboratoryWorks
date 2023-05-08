@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 export function Playlist(){
+
     let { plId } = useParams();
 
     let [pl, setPl] = useState(null);
@@ -12,8 +13,8 @@ export function Playlist(){
 
     let h = new Headers();
     h.append('Accept', 'application/json');
-    //let encoded = btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'));
-    let encoded = btoa('newUser1:2341');
+    let encoded = btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'));
+    //let encoded = btoa('newUser1:2341');
     
     let auth = 'Basic ' + encoded;
     

@@ -1,14 +1,24 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import ReactDOM from 'react-dom/client';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 export function UserPrivatePlaylists(){
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (localStorage.length <= 0){
+            alert("You do not have access");
+            navigate("/login");
+            return;  
+        }
+    });
+
     let url = "http://localhost:5000/playlist/user/private";
 
     let h = new Headers();
     h.append('Accept', 'application/json');
-    //let encoded = btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'));
-    let encoded = btoa('newUser1:2341');
+    let encoded = btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'));
+    //let encoded = btoa('User1:2341');
     
     let auth = 'Basic ' + encoded;
     
@@ -49,12 +59,23 @@ export function UserPrivatePlaylists(){
 }
 
 export function UserPublicPlaylists(){
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (localStorage.length <= 0){
+            alert("You do not have access");
+            navigate("/login");
+            return;   
+        }
+    });
+
     let url = "http://localhost:5000/playlist/user/public";
 
     let h = new Headers();
     h.append('Accept', 'application/json');
-    //let encoded = btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'));
-    let encoded = btoa('newUser1:2341');
+    let encoded = btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'));
+    //let encoded = btoa('User1:2341');
     
     let auth = 'Basic ' + encoded;
     
