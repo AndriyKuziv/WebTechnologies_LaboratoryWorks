@@ -9,7 +9,7 @@ export function UserPrivatePlaylists(){
         if (localStorage.length <= 0){
             alert("You do not have access");
             navigate("/login");
-            return;  
+            return;
         }
     });
 
@@ -33,9 +33,11 @@ export function UserPrivatePlaylists(){
     let [pls, setPls] = useState(null);
 
     useEffect(() => {
-        fetch(req)
-        .then(response => response.json())
-        .then(data => setPls(data))
+        if (localStorage.length > 0){
+            fetch(req)
+            .then(response => response.json())
+            .then(data => setPls(data))
+        }
     }, []);
 
     return (
@@ -90,9 +92,11 @@ export function UserPublicPlaylists(){
     let [pls, setPls] = useState(null);
 
     useEffect(() => {
-        fetch(req)
-        .then(response => response.json())
-        .then(data => setPls(data))
+        if (localStorage.length > 0){
+            fetch(req)
+            .then(response => response.json())
+            .then(data => setPls(data))
+        }
     }, []);
 
     return (
