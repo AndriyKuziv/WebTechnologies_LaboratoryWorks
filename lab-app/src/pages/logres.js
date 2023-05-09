@@ -129,5 +129,3 @@ export function Register(props){
   
     return <RegisterPage {...props} navigation={navigation} />;
 }
-
-//export { LoginPage };

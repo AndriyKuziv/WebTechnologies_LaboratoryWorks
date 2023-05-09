@@ -40,10 +40,6 @@ export function UserAccount(){
     }
 
     function SaveChanges(){
-
-        // console.log(usernameF);
-        // console.log(emailF);
-
         let url = "http://localhost:5000/user/" + localStorage.getItem('id');
         let body = JSON.stringify({username: usernameF, email: emailF});
 
@@ -77,7 +73,7 @@ export function UserAccount(){
             <input type="button" value="Save changes" id="save" onClick={SaveChanges}></input>
 
             <input type="button" value="Log out" id="logout" onClick={LogOut}></input>
-            <input type="button" value="Delete account" id="delete-account"></input>
+            {/* <input type="button" value="Delete account" id="delete-account"></input> */}
         </div>
     );
 }

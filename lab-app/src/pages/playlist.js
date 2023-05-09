@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
 export function Playlist(){
+    const navigate = useNavigate();
 
     let { plId } = useParams();
 
@@ -14,7 +15,6 @@ export function Playlist(){
     let h = new Headers();
     h.append('Accept', 'application/json');
     let encoded = btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'));
-    //let encoded = btoa('newUser1:2341');
     
     let auth = 'Basic ' + encoded;
     
@@ -33,15 +33,23 @@ export function Playlist(){
     });
 
     useEffect(() => {
-        fetch(req)
-        .then(response => response.json())
-        .then(data => setPl(data))
+        if (localStorage.length > 0){
+            fetch(req)
+            .then(response => response.json())
+            .then(data => setPl(data))
+        }
+        else{
+            alert("You have no access");
+            navigate("/login");
+        }
     }, []);
 
     useEffect(() => {
-        fetch(req2)
-        .then(response => response.json())
-        .then(data => setSongs(data))
+        if (localStorage.length > 0){
+            fetch(req2)
+            .then(response => response.json())
+            .then(data => setSongs(data))
+        }
     }, []);
 
     return(
@@ -49,8 +57,8 @@ export function Playlist(){
             <h1 className="playlist-name">{pl && pl.name}</h1>
             <h2 className="playlist-creator">{pl && pl.user_name}</h2>
             <h3 className="playlist-type">Type: {pl && pl.state}</h3>
-            <input type="button" value="Add song" id="add-button"></input>
-            <input type="button" value="Delete song" id="delete-song"></input>
+            <Link to={`/playlist/${plId}/addSong`}><input type="button" value="Add song" id="add-button"></input></Link>
+            <Link to={`/playlist/${plId}/deleteSong`}><input type="button" value="Delete song" id="delete-song"></input></Link>
             <ul className="song-list">
                 {
                     songs && songs.map((song) => {

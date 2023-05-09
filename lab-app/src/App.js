@@ -12,6 +12,7 @@ import { UserPrivatePlaylists, UserPublicPlaylists } from './pages/userPlaylists
 import { UserAccount } from './pages/userAccount';
 import { Playlist } from './pages/playlist';
 import React from 'react';
+import { SongsToAdd, SongsToDelete } from './pages/songList';
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/userAccount" element={ <UserAccount/> }/>
         <Route path="/playlist/:plId" element={ <Playlist/> }/>
+        <Route path="/playlist/:plId/addSong" element={ <SongsToAdd/> }/>
+        <Route path="/playlist/:plId/deleteSong" element={ <SongsToDelete/> }/>
     </Routes>
     
     <footer>
