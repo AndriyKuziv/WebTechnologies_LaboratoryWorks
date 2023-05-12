@@ -61,16 +61,11 @@ export function UserPrivatePlaylists(){
 
     function changeVisibility(){
         let pName = document.querySelector("#playlistName");
-        // let pType = document.querySelector("#playlistType");
         let confButton = document.querySelector("#confirmButton");
 
         if (pName.style.display == "none")
             pName.setAttribute("style", "display: inline-block");
         else pName.setAttribute("style", "display: none");
-
-        // if (pType.style.display == "none")
-        //     pType.setAttribute("style", "display: inline-block");
-        // else pType.setAttribute("style", "display: none");
 
         if (confButton.style.display == "none")
             confButton.setAttribute("style", "display: inline-block");
@@ -131,7 +126,7 @@ export function UserPrivatePlaylists(){
                         return <>
                         <Link to={`/playlist/${pl.id}`}> 
                         <div className="playlist-button" key={pl.id}>
-                            <h2 className="playlist-name">{pl.name}</h2>
+                            <h2 className="playlist-name">{pl.name.length < 14 ? pl.name : pl.name.slice(0, 13) + "..."}</h2>
                             <h4 className="playlist-creator">Creator: {pl.user_name}</h4>
                         </div>
                         </Link>
@@ -225,7 +220,7 @@ export function UserPublicPlaylists(){
                         return <>
                         <Link to={`/playlist/${pl.id}`}> 
                         <div className="playlist-button" key={pl.id}>
-                            <h2 className="playlist-name">{pl.name}</h2>
+                            <h2 className="playlist-name">{pl.name.length < 14 ? pl.name : pl.name.slice(0, 13) + "..."}</h2>
                             <h4 className="playlist-creator">Creator: {pl.user_name}</h4>
                         </div>
                         </Link>

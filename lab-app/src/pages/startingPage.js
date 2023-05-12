@@ -22,7 +22,7 @@ export function StartingPage(){
                     return <>
                     <Link to={`/playlist/${pl.id}`}> 
                     <div className="playlist-button" key={pl.id}>
-                        <h2 className="playlist-name">{pl.name}</h2>
+                        <h2 className="playlist-name">{pl.name.length < 14 ? pl.name : pl.name.slice(0, 13) + "..."}</h2>
                         <h4 className="playlist-creator">Creator: {pl.user_name}</h4>
                     </div>
                     </Link>
