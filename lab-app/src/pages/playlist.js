@@ -106,8 +106,8 @@ export function Playlist(){
             <h3 className="playlist-type">Type: {pl && pl.state}</h3>
             
             <input type="button" value={!visible ? "Edit playlist" : "Cancel"} id="edit-button" onClick={changeVisibility} style={{backgroundColor: "rgb(204,102,0)"}}></input>
-            <Link to={`/playlist/${plId}/addSong`} style={{ textDecoration: 'none' }} style={!visible ? {display: "none"} : {display: "inline-block", textDecoration: 'none'}}><input type="button" value="Add song" id="add-button"></input></Link>
-            <Link to={`/playlist/${plId}/deleteSong`} style={{ textDecoration: 'none' }} style={!visible ? {display: "none"} : {display: "inline-block",textDecoration: 'none'}}><input type="button" value="Delete song" id="delete-song" style={{backgroundColor: "rgb(122, 20, 20)"}}></input></Link>
+            <Link to={`/playlist/${plId}/addSong`} style={!visible ? {display: "none"} : {display: "inline-block", textDecoration: 'none'}}><input type="button" value="Add song" id="add-button"></input></Link>
+            <Link to={`/playlist/${plId}/deleteSong`} style={!visible ? {display: "none"} : {display: "inline-block", textDecoration: 'none'}}><input type="button" value="Delete song" id="delete-song" style={{backgroundColor: "rgb(122, 20, 20)"}}></input></Link>
             
             <input type="button" id="playlistState" value={playlistState} style={!visible ? {display:"none"} : {display:"flex", backgroundColor: "rgb(0,142,142)"}} onClick={changeType}></input>
             <input type="button" value="Change name" id="change-username" onClick={changeName} style={!visible ? {display: "none"} : {display: "flex", textDecoration: 'none'}}></input>
