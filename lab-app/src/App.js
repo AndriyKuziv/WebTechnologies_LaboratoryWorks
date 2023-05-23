@@ -17,7 +17,7 @@ import { SongsToAdd, SongsToDelete } from './pages/songList';
 function App() {
   return (
     <>
-    <nav>
+    <nav data-testid="navigation">
       <input type="checkbox" id="menu-toggle"></input>
       <label htmlFor="menu-toggle" className="menu-icon">&#9776;</label>
       <ul id="menu">
