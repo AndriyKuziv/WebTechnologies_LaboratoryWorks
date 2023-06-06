@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function AddPlaylist(name, type){
-    if (name == "" || name == null || type == null || type == ""){
-        alert("Error! You have done something wrong!");
-        return;
-    }
+    // if (name == "" || name == null || type == null || type == ""){
+    //     alert("Error! You have done something wrong!");
+    //     return;
+    // }
 
     let pName = document.querySelector("#playlistName");
     let confButton = document.querySelector("#confirmButton");
@@ -30,11 +30,10 @@ function AddPlaylist(name, type){
         },
         body: body
     })
-    .catch(error => console.error(error));
+    //.catch(error => console.error(error));
 }
 
 function DeletePlaylist(id){
-    console.log(id);
     let url = "http://localhost:5000/playlist/" + id;
 
     let encoded = btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'));
@@ -49,27 +48,20 @@ function DeletePlaylist(id){
     })
     .then(response => response.json())
     .then(data => console.log(data))
-    .catch(error => console.error(error))
+    //.catch(error => console.error(error))
 }
 
 
 export function UserPrivatePlaylists(){
     const navigate = useNavigate();
     let [plName, setPlName] = useState("");
+    let [visible, setVisibility] = useState(true);
     
     let [deleteMode, setDeleteMode] = useState(false);
 
     function changeVisibility(){
-        let pName = document.querySelector("#playlistName");
-        let confButton = document.querySelector("#confirmButton");
-
-        if (pName.style.display == "none")
-            pName.setAttribute("style", "display: inline-block");
-        else pName.setAttribute("style", "display: none");
-
-        if (confButton.style.display == "none")
-            confButton.setAttribute("style", "display: inline-block");
-        else confButton.setAttribute("style", "display: none");
+        if (visible) setVisibility(false);
+        else setVisibility(true);
     }
 
     function changeMode(){
@@ -79,13 +71,13 @@ export function UserPrivatePlaylists(){
         else setDeleteMode(false);
     }
 
-    useEffect(() => {
-        if (localStorage.length <= 0){
-            alert("You do not have access");
-            navigate("/login");
-            return;
-        }
-    });
+    // useEffect(() => {
+    //     if (localStorage.length <= 0){
+    //         alert("You do not have access");
+    //         navigate("/login");
+    //         return;
+    //     }
+    // });
 
     let url = "http://localhost:5000/playlist/user/private";
 
@@ -105,27 +97,33 @@ export function UserPrivatePlaylists(){
 
     let [pls, setPls] = useState(null);
 
-    useEffect(() => {
-        if (localStorage.length > 0){
-            fetch(req)
-            .then(response => response.json())
-            .then(data => setPls(data))
-        }
+    // useEffect(() => {
+    //     if (localStorage.length > 0){
+    //         fetch(req)
+    //         .then(response => response.json())
+    //         .then(data => setPls(data))
+    //     }
+    // }, []);
+
+    useEffect(() => {        
+        fetch(req)
+        .then(response => response.json())
+        .then(data => setPls(data))
     }, []);
 
     return (
         <div className="playlists">
             <div className="label" id="title"><h1>{!deleteMode ? "Your private playlists" : "Choose a playlist to delete"}</h1></div>
-            <input type="button" value="Add playlist" id="add-button" onClick={changeVisibility} style={{display:"inline-block"}}></input>
-            <input type="text" id="playlistName" name="playlistName" placeholder="Playlist Name" value={plName} onChange={e => setPlName(e.target.value)} style={{display:"none"}}></input>
-            <input type="button" id="confirmButton" value="Confirm" onClick={e => AddPlaylist(plName, "Private")} style={{display:"none"}}></input>
-            <input type="button" value={!deleteMode ? "Delete playlist" : "Cancel"} id="delete-button" onClick={changeMode} style={{display:"inline-block", backgroundColor: "rgb(122, 20, 20)"}}></input>
+            <input type="button" value="Add playlist" id="add-button" data-testid="add-button" onClick={changeVisibility} style={{display:"inline-block"}}></input>
+            <input type="text" id="playlistName" name="playlistName" placeholder="Playlist Name" value={plName} onChange={e => setPlName(e.target.value)} style={!visible ? {display:"none"} : {display: "inline-block"}}></input>
+            <input type="button" id="confirmButton" data-testid="confirmButton" value="Confirm" onClick={e => AddPlaylist(plName, "Private")} style={!visible ? {display:"none"} : {display: "inline-block"}}></input>
+            <input type="button" value={!deleteMode ? "Delete playlist" : "Cancel"} id="delete-button" data-testid="delete-button" onClick={changeMode} style={{display:"inline-block", backgroundColor: "rgb(122, 20, 20)"}}></input>
             <div className="container">
                 {pls && pls.map((pl) => {
                     if (!deleteMode){
                         return <>
                         <Link to={`/playlist/${pl.id}`}> 
-                        <div className="playlist-button" key={pl.id}>
+                        <div className="playlist-button" key={pl.id} data-testid={pl.id}>
                             <h2 className="playlist-name">{pl.name.length < 14 ? pl.name : pl.name.slice(0, 13) + "..."}</h2>
                             <h4 className="playlist-creator">Creator: {pl.user_name}</h4>
                         </div>
@@ -134,7 +132,7 @@ export function UserPrivatePlaylists(){
                     }
                     else{
                         return <>
-                        <div className="playlist-button" key={pl.id} onClick={e => DeletePlaylist(pl.id)}>
+                        <div className="playlist-button" key={pl.id} data-testid={pl.id} onClick={e => DeletePlaylist(pl.id)}>
                             <h2 className="playlist-name">{pl.name}</h2>
                             <h4 className="playlist-creator">Creator: {pl.user_name}</h4>
                         </div>
@@ -151,34 +149,25 @@ export function UserPublicPlaylists(){
     const navigate = useNavigate();
     let [plName, setPlName] = useState("");
     let [deleteMode, setDeleteMode] = useState(false);
+    let [visible, setVisibility] = useState(true);
 
     function changeVisibility(){
-        let pName = document.querySelector("#playlistName");
-        let confButton = document.querySelector("#confirmButton");
-
-        if (pName.style.display == "none")
-            pName.setAttribute("style", "display: inline-block");
-        else pName.setAttribute("style", "display: none");
-
-        if (confButton.style.display == "none")
-            confButton.setAttribute("style", "display: inline-block");
-        else confButton.setAttribute("style", "display: none");
+        if (visible) setVisibility(false);
+        else setVisibility(true);
     }
 
     function changeMode(){
-        if(deleteMode == false){
-            setDeleteMode(true);
-        }
+        if(deleteMode == false)setDeleteMode(true);
         else setDeleteMode(false);
     }
 
-    useEffect(() => {
-        if (localStorage.length <= 0){
-            alert("You do not have access");
-            navigate("/login");
-            return;   
-        }
-    });
+    // useEffect(() => {
+    //     if (localStorage.length <= 0){
+    //         alert("You do not have access");
+    //         navigate("/login");
+    //         return;   
+    //     }
+    // });
 
     let url = "http://localhost:5000/playlist/user/public";
 
@@ -199,27 +188,33 @@ export function UserPublicPlaylists(){
 
     let [pls, setPls] = useState(null);
 
+    // useEffect(() => {
+    //     if (localStorage.length > 0){
+    //         fetch(req)
+    //         .then(response => response.json())
+    //         .then(data => setPls(data))
+    //     }
+    // }, []);
+
     useEffect(() => {
-        if (localStorage.length > 0){
-            fetch(req)
-            .then(response => response.json())
-            .then(data => setPls(data))
-        }
+        fetch(req)
+        .then(response => response.json())
+        .then(data => setPls(data))
     }, []);
 
     return (
         <div className="playlists">
             <div className="label" id="title"><h1>{!deleteMode ? "Your public playlists" : "Choose a playlist to delete"}</h1></div>
             <input type="button" value="Add playlist" id="add-button" onClick={changeVisibility} style={{display:"inline-block"}}></input>
-            <input type="text" id="playlistName" name="playlistName" placeholder="Playlist Name" value={plName} onChange={e => setPlName(e.target.value)} style={{display:"none"}}></input>
-            <input type="button" id="confirmButton" value="Confirm" onClick={e => AddPlaylist(plName, "Private")} style={{display:"none"}}></input>
+            <input type="text" id="playlistName" name="playlistName" placeholder="Playlist Name" value={plName} onChange={e => setPlName(e.target.value)} style={!visible ? {display:"none"} : {display: "inline-block"}}></input>
+            <input type="button" id="confirmButton" value="Confirm" onClick={e => AddPlaylist(plName, "Private")} style={!visible ? {display:"none"} : {display: "inline-block"}}></input>
             <input type="button" value={!deleteMode ? "Delete playlist" : "Cancel"} id="delete-button" onClick={changeMode} style={{display:"inline-block", backgroundColor: "rgb(122, 20, 20)"}}></input>
             <div className="container">
                 {pls && pls.map((pl) => {
                     if (!deleteMode){
                         return <>
                         <Link to={`/playlist/${pl.id}`}> 
-                        <div className="playlist-button" key={pl.id}>
+                        <div className="playlist-button" key={pl.id} data-testid={pl.id}>
                             <h2 className="playlist-name">{pl.name.length < 14 ? pl.name : pl.name.slice(0, 13) + "..."}</h2>
                             <h4 className="playlist-creator">Creator: {pl.user_name}</h4>
                         </div>
@@ -228,7 +223,7 @@ export function UserPublicPlaylists(){
                     }
                     else{
                         return <>
-                        <div className="playlist-button" key={pl.id} onClick={e => DeletePlaylist(pl.id)}>
+                        <div className="playlist-button" key={pl.id} data-testid={pl.id} onClick={e => DeletePlaylist(pl.id)}>
                             <h2 className="playlist-name">{pl.name}</h2>
                             <h4 className="playlist-creator">Creator: {pl.user_name}</h4>
                         </div>

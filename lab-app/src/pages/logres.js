@@ -79,10 +79,10 @@ export class RegisterPage extends React.Component{
         var password = this.password.value;
         var confpassword = this.confpassword.value;
 
-        if (password !== confpassword){
-            alert("Write your password correctly");
-            return;
-        }
+        // if (password !== confpassword){
+        //     alert("Write your password correctly");
+        //     return;
+        // }
 
         let body = JSON.stringify({username: username, email:email, password: password});
 

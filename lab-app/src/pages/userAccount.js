@@ -58,7 +58,8 @@ export function UserAccount(){
             var usrnm = document.querySelector("#user-name");
             usrnm.innerHTML = localStorage.getItem('username')
             console.log(localStorage);
-        }).catch(error => console.error(error));
+        })
+        //.catch(error => console.error(error));
     }
 
     return (

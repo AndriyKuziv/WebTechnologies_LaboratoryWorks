@@ -20,7 +20,7 @@ function App() {
     <nav data-testid="navigation">
       <input type="checkbox" id="menu-toggle"></input>
       <label htmlFor="menu-toggle" className="menu-icon">&#9776;</label>
-      <ul id="menu">
+      <ul id="menu" data-testid="kek">
         <li><Link to="/"><b>Home</b></Link></li>
         <li><Link to="/userPublicPlaylists">Your public playlists</Link></li>
         <li><Link to="/userPrivatePlaylists">Your private playlists</Link></li>

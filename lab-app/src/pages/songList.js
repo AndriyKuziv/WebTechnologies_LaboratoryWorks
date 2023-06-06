@@ -3,13 +3,15 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 
 export function SongsToAdd(){
     const navigate = useNavigate();
-
     let { plId } = useParams();
 
+    let [songList, setLongList] = useState(null);
+
     function AddSong(songId){
+        
         let addUrl = "http://localhost:5000/playlist/" + plId + "/addSong";
         let body = JSON.stringify({ song_id: songId });
-
+    
         let encoded = btoa(localStorage.getItem('username') + ':' + localStorage.getItem('password'));
         let auth = 'Basic ' + encoded;
     
@@ -21,13 +23,11 @@ export function SongsToAdd(){
             },
             body: body
         })
-        .then(response => navigate("/playlist/" + plId))
-        .catch(error=>{
-            console.error(error);
-        });
+        .then(response => navigate("/playlist/" + plId));
+        // .catch(error=>{
+        //     console.error(error);
+        // });
     }
-
-    let [songList, setLongList] = useState(null);
 
     let url = "http://localhost:5000/song";
 
@@ -45,27 +45,33 @@ export function SongsToAdd(){
         credentials:'same-origin'
     });
 
+    // useEffect(() => {
+    //     if (localStorage.length > 0){
+    //         fetch(req)
+    //         .then(response => response.json())
+    //         .then(data => setLongList(data))
+    //     }
+    //     else{
+    //         alert("You have no access");
+    //         navigate("/login");
+    //     }
+    // }, []);
+
     useEffect(() => {
-        if (localStorage.length > 0){
-            fetch(req)
-            .then(response => response.json())
-            .then(data => setLongList(data))
-        }
-        else{
-            alert("You have no access");
-            navigate("/login");
-        }
+        fetch(req)
+        .then(response => response.json())
+        .then(data => setLongList(data))
     }, []);
 
     return(
-        <div className="songs">
-        <div className="label"><h1>Available songs</h1></div>
-            <div className="container">
-                <ul className="song-list">
+        <div className="songs" data-testid="sngs">
+        <div className="label" data-testid="lbl"><h1>Available songs</h1></div>
+            <div className="container" data-testid="cntnr">
+                <ul className="song-list" data-testid="sngls">
                     {
                         songList && songList.map((song) => {
                             return <>
-                            <li className="song" style={{cursor: "pointer"}} key={song.id} onClick={e => AddSong(song.id)}>
+                            <li className="song" style={{cursor: "pointer"}} key={song.id} data-testid={song.id} onClick={e => AddSong(song.id)}>
                             <div className="song-container">
                                 <h1 className="song-name">{song.name}</h1>
                                 <h2 className="artist-name">{song.artist}</h2>
@@ -132,7 +138,7 @@ export function SongsToDelete(){
                     {
                         songs && songs.map((song) => {
                             return <>
-                            <li className="song" style={{cursor: "pointer"}} key={song.id} onClick={e => DeleteSong(song.id)}>
+                            <li className="song" style={{cursor: "pointer"}} key={song.id} data-testid={song.id} onClick={e => DeleteSong(song.id)}>
                             <div className="song-container">
                                 <h1 className="song-name">{song.name}</h1>
                                 <h2 className="artist-name">{song.artist}</h2>
