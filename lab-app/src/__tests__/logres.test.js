@@ -39,9 +39,6 @@ describe('Login', () => {
         'Authorization': 'Basic dGVzdHVzZXI6dGVzdHBhc3N3b3Jk',
       },
     });
-
-    // await screen.findByText('test@example.com');
-    // expect(navigateMock).toHaveBeenCalledWith('/');
     expect(1).toEqual(1);
   });
 
@@ -69,7 +66,6 @@ describe('Login', () => {
     fireEvent.click(submitButton);
 
     expect(window.fetch).toHaveBeenCalled();
-    //expect(window.alert).toHaveBeenCalledWith('Wrong username or password');
     expect(navigateMock).not.toHaveBeenCalled();
   });
 });
@@ -119,9 +115,6 @@ describe('RegisterPage', () => {
         password: 'testpassword',
       }),
     });
-
-    //await screen.findByText('Registration successful');
-    //expect(navigateMock).toHaveBeenCalledWith('/');
     expect(1).toEqual(1);
   });
 });

@@ -12,7 +12,7 @@ import { UserPrivatePlaylists, UserPublicPlaylists } from './pages/userPlaylists
 import { UserAccount } from './pages/userAccount';
 import { Playlist } from './pages/playlist';
 import React from 'react';
-import { SongsToAdd, SongsToDelete } from './pages/songList';
+import { SongsList, SongsToAdd, SongsToDelete } from './pages/songList';
 
 function App() {
   return (
@@ -22,15 +22,25 @@ function App() {
       <label htmlFor="menu-toggle" className="menu-icon">&#9776;</label>
       <ul id="menu" data-testid="kek">
         <li><Link to="/"><b>Home</b></Link></li>
-        <li><Link to="/userPublicPlaylists">Your public playlists</Link></li>
-        <li><Link to="/userPrivatePlaylists">Your private playlists</Link></li>
+        <li style={localStorage.getItem('roles') != null ? {display: "inline"} : {display: "none"}}>
+          <Link to="/userPublicPlaylists">Your public playlists</Link>
+        </li>
+        <li style={localStorage.getItem('roles') != null ? {display: "inline"} : {display: "none"}}>
+          <Link to="/userPrivatePlaylists">Your private playlists</Link>
+        </li>
+        <li style={localStorage.getItem('roles') != null && localStorage.getItem('roles').includes('admin') ? 
+            {display: "inline"} : {display: "none"}}>
+          <Link to="/songsList">List of songs</Link>
+        </li>
         <li><Link to="/userAccount">Your account</Link></li>
       </ul>
     </nav>
+    
     <Routes>
         <Route exact path="/" element={ <StartingPage/> }/>
         <Route path="/userPublicPlaylists" element={ <UserPublicPlaylists/> }/>
         <Route path="/userPrivatePlaylists" element={ <UserPrivatePlaylists/> }/>
+        <Route path="/songsList" element={ <SongsList/> }/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/userAccount" element={ <UserAccount/> }/>

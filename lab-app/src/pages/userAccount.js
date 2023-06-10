@@ -15,8 +15,8 @@ export function UserAccount(){
 
     function LogOut(){
         localStorage.clear();
-        console.log("done");
         navigate("/");
+        window.location.reload();
     }
     
     function ShowUsername(){
@@ -59,22 +59,23 @@ export function UserAccount(){
             usrnm.innerHTML = localStorage.getItem('username')
             console.log(localStorage);
         })
-        //.catch(error => console.error(error));
+        .catch(error => console.error(error));
     }
 
     return (
         <div id="user-account">
             <h1 id="user-name">{localStorage.getItem('username')}</h1>
             <input type="button" value="Change username" id="change-username" onClick={ShowUsername}></input>
-            <input type="text" id="username" name="username" placeholder="Username" value={usernameF} onChange={e => setUsernameF(e.target.value)} style={{display:"none"}}></input>
+            <input type="text" id="username" name="username" placeholder="Username" value={usernameF} 
+                onChange={e => setUsernameF(e.target.value)} style={{display:"none"}}></input>
 
             <input type="button" value="Change email" id="change-email" onClick={ShowEmail}></input>
-            <input type="text" id="email" name="email" placeholder="Email" value={emailF} onChange={e => setEmailF(e.target.value)} style={{display:"none"}}></input>
+            <input type="text" id="email" name="email" placeholder="Email" value={emailF} 
+                onChange={e => setEmailF(e.target.value)} style={{display:"none"}}></input>
 
             <input type="button" value="Save changes" id="save" onClick={SaveChanges}></input>
 
             <input type="button" value="Log out" id="logout" onClick={LogOut}></input>
-            {/* <input type="button" value="Delete account" id="delete-account"></input> */}
         </div>
     );
 }

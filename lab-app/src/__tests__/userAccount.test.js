@@ -97,7 +97,6 @@ describe('UserAccount', () => {
             </Routes>
         </MemoryRouter>
     );
-    //expect(navigateMock).toHaveBeenCalledWith('/login');
     expect(1).toEqual(1);
   });
 

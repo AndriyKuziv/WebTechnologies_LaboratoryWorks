@@ -8,7 +8,7 @@ export function StartingPage(){
     useEffect(() => {
         fetch('http://localhost:5000/playlist')
         .then(response => response.json())
-        .then(data => {setPls(data); console.log(data)})
+        .then(data => setPls(data))
     }, []);
 
     return <>

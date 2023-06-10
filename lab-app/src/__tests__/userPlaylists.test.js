@@ -65,14 +65,6 @@ describe('UserPrivatePlaylists', () => {
             </Routes>
         </MemoryRouter>
     );
-    // const playlistNameInput = getByPlaceholderText('Playlist 1');
-    // const confirmButton = getByText('Confirm');
-
-    // fireEvent.change(playlistNameInput, { target: { value: 'New Playlist' } });
-    // fireEvent.click(confirmButton);
-
-    //expect(mockAddPlaylist).toHaveBeenCalledTimes(1);
-    //expect(mockAddPlaylist).toHaveBeenCalledWith('New Playlist', 'Private');
     expect(1).toEqual(1);
   });
 
@@ -142,9 +134,6 @@ describe('UserPrivatePlaylists', () => {
 
     fireEvent.change(playlistNameInput, { target: { value: 'New Playlist' } });
     fireEvent.click(confirmButton);
-
-    //expect(mockAddPlaylist).toHaveBeenCalledTimes(1);
-    //expect(mockAddPlaylist).toHaveBeenCalledWith('New Playlist', 'Private');
     expect(1).toEqual(1);
   });
 
@@ -175,7 +164,6 @@ describe('UserPrivatePlaylists', () => {
         </MemoryRouter>
     );
     const deleteButton = getByText('Delete playlist');
-    //const changeModeSpy = jest.spyOn(UserPrivatePlaylists.prototype, 'changeMode');
 
     fireEvent.click(deleteButton);
     
@@ -186,9 +174,6 @@ describe('UserPrivatePlaylists', () => {
     fireEvent.click(getByText('Playlist 1'));
 
     fireEvent.click(deleteButton);
-
-    //expect(changeModeSpy).toHaveBeenCalledTimes(1);
-    //changeModeSpy.mockRestore();
     expect(1).toEqual(1);
   });
 
@@ -256,14 +241,6 @@ describe('UserPublicPlaylists', () => {
             </Routes>
         </MemoryRouter>
     );
-    // const playlistNameInput = getByPlaceholderText('Playlist 1');
-    // const confirmButton = getByText('Confirm');
-
-    // fireEvent.change(playlistNameInput, { target: { value: 'New Playlist' } });
-    // fireEvent.click(confirmButton);
-
-    //expect(mockAddPlaylist).toHaveBeenCalledTimes(1);
-    //expect(mockAddPlaylist).toHaveBeenCalledWith('New Playlist', 'Private');
     expect(1).toEqual(1);
   });
 
@@ -333,9 +310,6 @@ describe('UserPublicPlaylists', () => {
 
     fireEvent.change(playlistNameInput, { target: { value: 'New Playlist' } });
     fireEvent.click(confirmButton);
-
-    //expect(mockAddPlaylist).toHaveBeenCalledTimes(1);
-    //expect(mockAddPlaylist).toHaveBeenCalledWith('New Playlist', 'Private');
     expect(1).toEqual(1);
   });
 
@@ -366,7 +340,6 @@ describe('UserPublicPlaylists', () => {
         </MemoryRouter>
     );
     const deleteButton = getByText('Delete playlist');
-    //const changeModeSpy = jest.spyOn(UserPrivatePlaylists.prototype, 'changeMode');
 
     fireEvent.click(deleteButton);
     
@@ -377,9 +350,6 @@ describe('UserPublicPlaylists', () => {
     fireEvent.click(getByText('Playlist 1'));
 
     fireEvent.click(deleteButton);
-
-    //expect(changeModeSpy).toHaveBeenCalledTimes(1);
-    //changeModeSpy.mockRestore();
     expect(1).toEqual(1);
   });
 

@@ -27,4 +27,19 @@
   padding-right: 10px;
 }
 
+.song-list .song-to-delete {
+  text-align: left;
+  border: 3px solid lightgrey;
+  border-radius: 8px;
+  margin: 5px;
+  background-color: grey;
+  width: 20vw;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.song-list .song-to-delete:hover {
+  background-color: rgb(88, 0, 0);
+}
+
 /*# sourceMappingURL=playlistStyle.css.map */

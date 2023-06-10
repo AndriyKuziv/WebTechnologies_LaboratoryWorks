@@ -48,8 +48,8 @@ export function Playlist(){
             body: body
         })
         .then(response => response.json())
-        //.then(data => window.location.reload())
-        // .catch(error => console.error(error));
+        .then(data => window.location.reload())
+        .catch(error => console.error(error));
     }
     
     let url = "http://localhost:5000/playlist/" + plId;
@@ -75,23 +75,8 @@ export function Playlist(){
         credentials:'same-origin'
     });
 
-    // useEffect(() => {
-    //     if (localStorage.length > 0){
-    //         fetch(req)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setPl(data);
-    //             setPlName(data.name);
-    //             setPlaylistState(data.state);
-    //         })
-    //     }
-    //     else{
-    //         alert("You have no access");
-    //         navigate("/login");
-    //     }
-    // }, []);
-
     useEffect(() => {
+        if (localStorage.length > 0){
             fetch(req)
             .then(response => response.json())
             .then(data => {
@@ -99,8 +84,11 @@ export function Playlist(){
                 setPlName(data.name);
                 setPlaylistState(data.state);
             })
-        
-
+        }
+        else{
+            alert("You have no access");
+            navigate("/login");
+        }
     }, []);
 
     useEffect(() => {
@@ -117,14 +105,23 @@ export function Playlist(){
             <h2 className="playlist-creator">{pl && pl.user_name}</h2>
             <h3 className="playlist-type">Type: {pl && pl.state}</h3>
             
-            <input type="button" value={!visible ? "Edit playlist" : "Cancel"} id="edit-button" data-testid="edit-button"onClick={changeVisibility} style={{backgroundColor: "rgb(204,102,0)"}}></input>
-            <Link to={`/playlist/${plId}/addSong`} style={!visible ? {display: "none"} : {display: "inline-block", textDecoration: 'none'}}><input type="button" value="Add song" id="add-button"></input></Link>
-            <Link to={`/playlist/${plId}/deleteSong`} style={!visible ? {display: "none"} : {display: "inline-block", textDecoration: 'none'}}><input type="button" value="Delete song" id="delete-song" style={{backgroundColor: "rgb(122, 20, 20)"}}></input></Link>
+            <input type="button" value={!visible ? "Edit playlist" : "Cancel"} id="edit-button" data-testid="edit-button"onClick={changeVisibility} 
+                style={{backgroundColor: "rgb(204,102,0)"}}></input>
+            <Link to={`/playlist/${plId}/addSong`} style={!visible ? {display: "none"} : {display: "inline-block", textDecoration: 'none'}}>
+                <input type="button" value="Add song" id="add-button"></input>
+            </Link>
+            <Link to={`/playlist/${plId}/deleteSong`} style={!visible ? {display: "none"} : {display: "inline-block", textDecoration: 'none'}}>
+                <input type="button" value="Delete song" id="delete-song" style={{backgroundColor: "rgb(122, 20, 20)"}}></input>
+            </Link>
             
-            <input type="button" id="playlistState" data-testid="playlistState" value={playlistState} style={!visible ? {display:"none"} : {display:"flex", backgroundColor: "rgb(0,142,142)"}} onClick={changeType}></input>
-            <input type="button" value="Change name" id="change-username" data-testid="changeName" onClick={changeName} style={!visible ? {display: "none"} : {display: "flex", textDecoration: 'none'}}></input>
-            <input type="text" id="playlistName" name="playlistName" placeholder="Playlist Name" value={plName} onChange={e => setPlName(e.target.value)} style={!visibleName ? {display: "none"} : {display: "flex", textDecoration: 'none'}}></input>
-            <input type="button" value="Save changes" id="save-changes" data-testid="save-changes" onClick={saveChanges} style={!visible ? {display: "none"} : {display: "flex", backgroundColor: "rgb(204,102,0)"}}></input>
+            <input type="button" id="playlistState" data-testid="playlistState" value={playlistState} 
+                style={!visible ? {display:"none"} : {display:"flex", backgroundColor: "rgb(0,142,142)"}} onClick={changeType}></input>
+            <input type="button" value="Change name" id="change-username" data-testid="changeName" onClick={changeName} 
+                style={!visible ? {display: "none"} : {display: "flex", textDecoration: 'none'}}></input>
+            <input type="text" id="playlistName" name="playlistName" placeholder="Playlist Name" value={plName} 
+            onChange={e => setPlName(e.target.value)} style={!visibleName ? {display: "none"} : {display: "flex", textDecoration: 'none'}}></input>
+            <input type="button" value="Save changes" id="save-changes" data-testid="save-changes" onClick={saveChanges} 
+                style={!visible ? {display: "none"} : {display: "flex", backgroundColor: "rgb(204,102,0)"}}></input>
 
             <ul className="song-list">
                 {

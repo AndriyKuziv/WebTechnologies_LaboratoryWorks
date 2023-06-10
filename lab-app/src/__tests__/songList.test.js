@@ -26,7 +26,6 @@ describe('SongsToAdd', () => {
 
 
   it('renders the functional songs` buttons', async () => {
-    // const myFunction = jest.spyOn(AddSong);
     
     render(
         <MemoryRouter initialEntries={["/playlist/1/addSong"]}>
@@ -45,7 +44,6 @@ describe('SongsToAdd', () => {
 
 
     fireEvent.click(screen.getByTestId('1'));
-    //expect(AddSong).toHaveBeenCalled();
     expect(1).toEqual(1);
   });
 

@@ -34,10 +34,11 @@ export class LoginPage extends React.Component{
             
         })
         .then(data => {
-            console.log(data);
             localStorage.setItem('email', data.email);
             localStorage.setItem('id', data.id);
+            localStorage.setItem('roles', data.roles);
             navigate("/");
+            window.location.reload();
         })
         .catch(error => console.error(error));
     }
@@ -79,14 +80,12 @@ export class RegisterPage extends React.Component{
         var password = this.password.value;
         var confpassword = this.confpassword.value;
 
-        // if (password !== confpassword){
-        //     alert("Write your password correctly");
-        //     return;
-        // }
+        if (password !== confpassword){
+            alert("Write your password correctly");
+            return;
+        }
 
         let body = JSON.stringify({username: username, email:email, password: password});
-
-        console.log(body);
     
         let url = 'http://localhost:5000/user/create';
 
@@ -99,7 +98,6 @@ export class RegisterPage extends React.Component{
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             navigation("/");
         })
         .catch(error => {
@@ -115,7 +113,8 @@ export class RegisterPage extends React.Component{
                     <input type="text" id="username" name="username" placeholder="Username" required ref={(c) => this.username = c}></input>
                     <input type="text" id="email" name="email" placeholder="Email" required ref={(c) => this.email = c}></input>
                     <input type="password" id="password" name="password" placeholder="Password" required ref={(c) => this.password = c}></input>
-                    <input type="password" id="conf-password" name="password" placeholder="Confirm password" required ref={(c) => this.confpassword = c}></input>
+                    <input type="password" id="conf-password" name="password" placeholder="Confirm password" required ref={(c) => this.confpassword = c}>
+                    </input>
                     <input type="submit" value="Register" id="register" onClick={this.onSubmit}></input>
                     <Link to="/login"><h4>Already have an account?</h4></Link>
                 </form>
